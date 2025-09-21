@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>LeetView</title>
+    <meta charset="UTF-8">
+
+    <style>
+
+        :root{
+            --background:#000000 ;
+            --card: #151515;
+            --accent: #F8A145;
+            --text: #F07900;
+            --sec-text: #D35100;
+        }
+
+        *{
+            box-sizing:border-box;
+            padding:0;
+            margin:0;
+            font-family:cursive;
+            color:white;
+            letter-spacing:0.03rem;
+        }
+
+       #container{
+            background:var(--background);
+            max-width: 100vw;
+            min-height: 100vh;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            padding:3.5rem;
+        }
+
+       #card{
+            background: var(--card);
+            padding:3rem 4rem;
+            display:flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content:center;
+            border-radius: 1.5rem;
+       }
+
+
+        #title{
+            color: var(--text);
+            font-size: 2.5rem;
+            font-weight:700;
+        }
+
+        #headline{
+            color: wheat;
+            font-weight:500;
+            font-size:1.1rem;
+            margin-top: 0.6rem;
+        }
+
+        form{
+            width:100%;
+            margin-top:0.8rem;
+            display:flex;
+            gap:0.4rem;
+        }
+
+        input{
+            background:var(--background);
+            border:none;
+            color: var(--text);
+            width:85%;
+            padding:0.3rem 0.5rem;
+            border-radius:0.5rem;
+        }
+
+        input:focus{
+            outline:0.1px solid var(--sec-text);
+        }
+
+        button{
+            background: var(--background);
+            color: var(--text);
+            width:14%;
+            border:none;
+            padding: 0.3rem 0.5rem;
+            border-radius:0.5rem;
+            font-weight: 550;
+            transition: 0.1s linear;
+        }
+
+        button:hover{
+            transform: scale(1.05);
+            cursor:pointer;
+        }
+
+
+        #notfound{
+            color: var(--text);
+            margin-top:1rem;
+        }
+
+    </style>
+
+</head>
+
+    <div id="container">
+
+        <div id="card">
+
+            <div id="title">LeetView</div>
+            <div id="headline">Enter a LeetCode username below to view their profile stats.</div>
+
+            <form th:action="@{/search}" method="post">
+                <input type="text" name="username" autocomplete="off">
+                <button type="submit">Search</button>
+            </form>
+
+            <div th:if="${param.notFound}" id="notfound">Username not found 😐</div>
+
+        </div>
+
+    </div>
+
+<body>
+
+
+
+</body>
+
+
+</html>
