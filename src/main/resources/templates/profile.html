@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" th:href="@{/icon.png}">
+
+    <style>
+
+        :root{
+            --bg-dark: hsl(222 100% 4%);
+            --bg: hsl(207 100% 5%);
+            --bg-light: hsl(200 100% 6%);
+            --text: hsl(196 100% 89%);
+            --text-muted: hsl(195 67% 63%);
+            --highlight: hsl(194 100% 17%);
+            --border: hsl(197 100% 17%);
+            --border-muted: hsl(201 100% 11%);
+            --primary: hsl(191 100% 31%);
+            --secondary: hsl(19 100% 65%);
+            --danger: hsl(7 100% 66%);
+            --warning: hsl(53 100% 21%);
+            --success: hsl(162 100% 22%);
+            --info: hsl(217 100% 70%);
+        }
+
+        *{
+            box-sizing:border-box;
+            padding:0;
+            margin:0;
+            font-family:cursive;
+            color:white;
+            letter-spacing:0.03rem;
+            flex-wrap: wrap;
+        }
+
+        #container{
+            background-image:linear-gradient(90deg, var(--bg-dark), var(--bg));
+            max-width: 100vw;
+            min-height: 100vh;
+            display:grid;
+            padding:3.5rem;
+            gap: 2rem;
+            grid-template-rows: repeat(2,1fr);
+            grid-template-columns: repeat(3,1fr);
+        }
+
+        .card{
+            background: var(--bg-light);
+            padding:2.5rem;
+            border-radius: 1.5rem;
+            border: 0.5px solid var(--border-muted);
+            height:auto;
+            transition: 0.2s linear;
+
+        }
+
+        .card:hover{
+            border: 0.5px solid var(--border);
+            box-shadow: rgba(72, 135, 202, 0.8) 0 0 35px 0px;
+            cursor: default;
+        }
+
+        #profilepic{
+            width:6rem;
+            border-radius:100%;
+        }
+
+        #profileLeft{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            gap: 1.5rem;
+            text-align:center;
+            grid-area: 1/1/2/2;
+        }
+
+        #leftDown{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            gap:0.2rem;
+        }
+
+        .profileText{
+            color: var(--text);
+        }
+
+        .mainText{
+            color: var(--text);
+            font-size: 1.05rem;
+        }
+
+        .sectext{
+            color:var(--text-muted);
+        }
+
+        #profileRight{
+            grid-area: 2/1/3/2;
+            display:flex;
+            flex-direction:column;
+            gap:0.3rem;
+        }
+
+        #questionsSolved{
+            grid-area: 1/2/2/3;
+            display:flex;
+            flex-direction:column;
+            gap:0.3rem;
+        }
+
+        .heading{
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--text)
+        }
+
+        #contestData{
+            grid-area:1/3/2/4;
+            display:flex;
+            flex-direction:column;
+            gap:0.3rem;
+        }
+
+        #badgesData{
+            grid-area:2/2/3/3;
+            display:flex;
+            flex-direction:column;
+            gap:0.3rem;
+        }
+
+        #badgecontainer{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap: 0.1rem;
+        }
+
+        .badgeimg{
+            width:3.5rem;
+        }
+
+        .noData{
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        #recentData{
+            grid-area:2/3/3/4;
+            display:flex;
+            flex-direction:column;
+            gap:0.3rem;
+        }
+
+        #recentContainer{
+            display:flex;
+            gap: 0.3rem;
+            flex-direction:column;
+        }
+
+        a{
+            text-decoration: none;
+            transition: 0.2s linear;
+        }
+
+        .link:hover{
+            color: var(--text);
+            cursor:pointer;
+        }
+
+        #goBack{
+            text-decoration:none;
+            background: var(--bg);
+            padding: 0.4rem 0.8rem;
+            border:0.5px solid var(--border);
+            border-radius: 0.8rem;
+            transition: 0.2s linear;
+            position:fixed;
+            top: 0.4rem;
+            left: 0.4rem;
+        }
+
+        #goBack:hover{
+            cursor:pointer;
+            box-shadow: var(--border) 0 0 10px 0px;
+        }
+
+        @media (max-width:1100px){
+
+            #container{
+                grid-template-rows: repeat(3,1fr);
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            #profileLeft{
+                grid-area:1/1/2/2;
+            }
+
+            #profileRight{
+                grid-area: 2/2/3/3;
+            }
+
+            #questionsSolved{
+                grid-area: 1/2/2/3;
+            }
+
+            #contestData{
+                 grid-area:2/1/3/2;
+            }
+
+            #badgesData{
+                grid-area:3/1/4/2;
+            }
+
+            #recentData{
+                grid-area:3/2/4/3;
+            }
+
+        }
+
+
+        @media (max-width:700px){
+
+            .heading{
+                font-size: 1.2rem;
+            }
+
+            #username, #realname, #aboutme{
+                font-size: 0.8rem;
+            }
+
+            .sectext, .mainText{
+                font-size: 0.8rem;
+            }
+
+            .card{
+                padding:1.5rem;
+            }
+
+            #container{
+                grid-template-rows: repeat(6,1fr);
+                grid-template-columns: repeat(1,1fr);
+            }
+
+            #profileLeft{
+                grid-area:1/1/2/2;
+            }
+
+            #profileRight{
+                grid-area: 4/1/5/2;
+            }
+
+            #questionsSolved{
+                grid-area: 2/1/3/2;
+            }
+
+            #contestData{
+                 grid-area:3/1/4/2;
+            }
+
+            #badgesData{
+                grid-area:5/1/6/2;
+            }
+
+            #recentData{
+                grid-area:6/1/7/2;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+    <a th:href="@{/}" id="goBack">Go Back</a>
+
+    <div class="card" id="profileLeft">
+
+
+        <img id="profilepic" th:src="${leetAllData.profileDataResponse.data.matchedUser.profile.userAvatar}">
+
+
+        <div id="leftDown">
+
+            <div id="username" class="profileText" th:text="${leetAllData.profileDataResponse.data.matchedUser.username}">sadsad</div>
+
+            <div id="realname" class="profileText" th:text="${leetAllData.profileDataResponse.data.matchedUser.profile.realName}">sdsad</div>
+
+            <div id="aboutme" class="profileText" th:text="${leetAllData.profileDataResponse.data.matchedUser.profile.aboutMe}">sadsad</div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="card" id="profileRight">
+
+        <div class="heading">Community Stats</div>
+
+        <div class="sectext">Views: <span class="mainText" th:text="${leetAllData.profileDataResponse.data.matchedUser.profile.postViewCount}"></span></div>
+        <div class="sectext">Reputation: <span class="mainText" th:text="${leetAllData.profileDataResponse.data.matchedUser.profile.reputation}"></span> </div>
+        <div class="sectext">Solutions: <span class="mainText" th:text="${leetAllData.profileDataResponse.data.matchedUser.profile.solutionCount}"></span> </div>
+        <div class="sectext">Discuss: <span class="mainText" th:text="${leetAllData.profileDataResponse.data.matchedUser.profile.categoryDiscussCount}"></span> </div>
+    </div>
+
+
+
+    <div class="card" id="questionsSolved">
+
+        <div class="heading">Questions Solved</div>
+
+        <div class="sectext" >
+            Total:
+            <span class="mainText" th:text="${leetAllData.questionDataResponse.data.matchedUser.submitStats.acSubmissionNum[0].count + ' / '+
+                leetAllData.questionDataResponse.data.allQuestionsCount[0].count}"></span>
+        </div>
+
+        <div class="sectext" >
+            Easy:
+            <span class="mainText" th:text="${leetAllData.questionDataResponse.data.matchedUser.submitStats.acSubmissionNum[1].count + ' / ' +
+                leetAllData.questionDataResponse.data.allQuestionsCount[1].count}"></span>
+        </div>
+
+        <div class="sectext" >
+            Medium:
+            <span class="mainText" th:text="${leetAllData.questionDataResponse.data.matchedUser.submitStats.acSubmissionNum[2].count + ' / ' +
+                leetAllData.questionDataResponse.data.allQuestionsCount[2].count}"></span>
+        </div>
+
+        <div class="sectext" >
+            Hard:
+            <span class="mainText" th:text="${leetAllData.questionDataResponse.data.matchedUser.submitStats.acSubmissionNum[3].count + ' / ' +
+                leetAllData.questionDataResponse.data.allQuestionsCount[3].count}"></span>
+        </div>
+
+    </div>
+
+
+
+    <div class="card" id="contestData">
+
+        <div class="heading">Contests</div>
+
+        <div class="noData sectext" th:if="${attendedContest == null}">No Contest History</div>
+
+        <div class="sectext" th:if="${attendedContest != null}">
+            Contests Attended:
+            <span class="mainText" th:text="${leetAllData.contestDataResponse.data.userContestRanking.attendedContestsCount}"></span>
+        </div>
+
+        <div class="sectext" th:if="${attendedContest != null}">
+            Rating:
+            <span class="mainText" th:text="${leetAllData.contestDataResponse.data.userContestRanking.rating}"></span>
+        </div>
+
+        <div class="sectext" th:if="${attendedContest != null}">
+            Global Ranking:
+            <span class="mainText" th:text="${leetAllData.contestDataResponse.data.userContestRanking.globalRanking + ' / ' +
+                leetAllData.contestDataResponse.data.userContestRanking.totalParticipants}"></span>
+        </div>
+
+        <div class="sectext" th:if="${attendedContest != null}">
+            Top Percentage:
+            <span class="mainText" th:text="${leetAllData.contestDataResponse.data.userContestRanking.topPercentage + '%'}"></span>
+        </div>
+
+    </div>
+
+
+
+    <div class="card" id="badgesData">
+
+        <div class="heading">Badges</div>
+
+        <div class="sectext noData" th:if="${leetAllData.badgesDataResponse.data.matchedUser.badges.size() == 0}">No Badges</div>
+
+        <div id="badgecontainer" th:if="${leetAllData.badgesDataResponse.data.matchedUser.badges.size() > 0}">
+
+            <div class="badges" th:each = "badge : ${leetAllData.badgesDataResponse.data.matchedUser.badges}">
+                <img class="badgeimg" th:src="${badge.icon}" th:alt="${badge.displayName}" th:title="${badge.displayName}"/>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card" id="recentData">
+
+        <div class="heading">Recent Submissions</div>
+
+        <div class="sectext noData" th:if="${leetAllData.recentDataResponse.data.recentAcSubmissionList.size() == 0}">No Recent Submissions</div>
+
+        <div id="recentContainer" th:if="${leetAllData.recentDataResponse.data.recentAcSubmissionList.size() > 0}">
+
+            <div class="badges" th:each = "submission : ${leetAllData.recentDataResponse.data.recentAcSubmissionList}">
+                <a class="link sectext" th:href="${'https://leetcode.com/problems/' + submission.titleSlug}" target="_blank" th:text="${'- ' + submission.title}"></a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+
+</html>

@@ -62,7 +62,7 @@ String query = """
             ranking
             contest {
                 title
-                tartTime
+                startTime
             }
         }
     }

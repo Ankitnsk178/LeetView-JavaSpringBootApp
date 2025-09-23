@@ -6,7 +6,6 @@
     <title>LeetView</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" th:href="@{/icon.png}">
 
     <style>
 
@@ -57,6 +56,7 @@
             border-radius: 1.5rem;
             border: 0.5px solid var(--border-muted);
             transition: 0.2s linear;
+            gap:2rem;
        }
 
         #card:hover{
@@ -68,87 +68,50 @@
             color: var(--text);
             font-size: 2.5rem;
             font-weight:700;
+            text-align: center;
         }
 
-        #headline{
-            color: var(--text-muted);
-            font-weight:500;
-            font-size:1.1rem;
-            margin-top: 0.6rem;
-            text-align:center;
+        a{
+            text-decoration:none;
+            background: var(--bg);
+            padding: 0.4rem 0.8rem;
+            border:0.5px solid var(--border-muted);
+            border-radius: 0.8rem;
+            transition: 0.2s linear;
         }
 
-        form{
-            width:100%;
-            margin-top:0.8rem;
-            display:flex;
-            gap:0.4rem;
-            justify-content:center;
-            flex-wrap: wrap;
-        }
-
-        input{
-            flex: 1 1 100px;
-            background:var(--bg-dark);
-            border:none;
-            color: var(--text);
-            font-weight:550;
-            padding:0.3rem 0.5rem;
-            border-radius:0.5rem;
-            border: 0.5px solid var(--border-muted);
-        }
-
-        input:focus{
-            outline:0.5px solid var(--border);
-        }
-
-        button{
-            flex: 0 0 auto;
-            background: var(--bg-dark);
-            color: var(--text);
-            border:none;
-            padding: 0.3rem 0.5rem;
-            border-radius:0.5rem;
-            font-weight: 550;
-            border: 0.5px solid var(--border-muted);
-            transition: 0.1s linear;
-        }
-
-        button:hover{
-            transform: scale(1.05);
+        a:hover{
             border: 0.5px solid var(--border);
             cursor:pointer;
+            box-shadow: var(--border) 0 0 10px 0px;
         }
 
+        @media (max-width : 1000px){
+            #title{
+                font-size:1.5rem;
+            }
+        }
 
-        .notfound{
-            color: var(--danger);
-            margin-top:1rem;
-            text-align:center;
+        @media (max-width: 700px){
+            #title{
+                font-size:1rem;
+            }
         }
 
     </style>
 
 </head>
 
-    <div id="container">
+<div id="container">
 
-        <div id="card">
+    <div id="card">
 
-            <div id="title">LeetView</div>
-            <div id="headline">Enter a LeetCode username below to view their profile stats.</div>
-
-            <form th:action="@{/search}" method="post">
-                <input type="text" name="username" autocomplete="off">
-                <button type="submit">Search</button>
-            </form>
-
-            <div th:if="${param.notFound}" class="notfound">Username Not Found. 😐</div>
-            <div th:if="${param.timeOut}" class="notfound">LeetCode server timeout. Please try again. ⌛</div>
-
-        </div>
+        <div id="title">Oops! Something Went Wrong.🙃</div>
+        <a th:href="@{/}">Go Back</a>
 
     </div>
+
+</div>
 
 <body>
 
