@@ -362,7 +362,7 @@
 
         <div class="sectext" th:if="${attendedContest != null}">
             Rating:
-            <span class="mainText" th:text="${leetAllData.contestDataResponse.data.userContestRanking.rating}"></span>
+            <span class="mainText" th:text="${#numbers.formatDecimal(leetAllData.contestDataResponse.data.userContestRanking.rating, 2, 2)}"></span>
         </div>
 
         <div class="sectext" th:if="${attendedContest != null}">
